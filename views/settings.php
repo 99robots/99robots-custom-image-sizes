@@ -21,7 +21,7 @@
 						<th><?php _e('Width', self::$text_domain); ?></th>
 						<th><?php _e('Height', self::$text_domain); ?></th>
 						<th><?php _e('Crop', self::$text_domain); ?></th>
-						<th></th>
+						<th><?php _e('Source', self::$text_domain); ?></th>
 					</thead>
 
 					<tbody class="<?php echo self::$prefix_dash; ?>repeater-container">
@@ -44,7 +44,7 @@
 
 									echo $crop;
 								?></td>
-								<td class="<?php echo self::$prefix_dash; ?>repeater-item-action"></td>
+								<td class="<?php echo self::$prefix_dash; ?>repeater-item-action"><?php echo $size['source']; ?></td>
 							</tr>
 
 						<?php } ?>

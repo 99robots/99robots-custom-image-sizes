@@ -231,13 +231,15 @@ class NNR_Custom_Image_Sizes {
                 $sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
                 $sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
                 $sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
+                $sizes[ $_size ]['source'] = __('Core', self::$text_domain);
 
             } else if ( isset( $_wp_additional_image_sizes[ $_size ] ) && !in_array($_size, $custom_name)) {
 
                 $sizes[ $_size ] = array(
                         'width' 	=> $_wp_additional_image_sizes[ $_size ]['width'],
                         'height' 	=> $_wp_additional_image_sizes[ $_size ]['height'],
-                        'crop' 		=> $_wp_additional_image_sizes[ $_size ]['crop']
+                        'crop' 		=> $_wp_additional_image_sizes[ $_size ]['crop'],
+                        'source'	=> __('Custom', self::$text_domain),
                 );
 
             }
