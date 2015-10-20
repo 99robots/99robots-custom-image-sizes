@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Custom Image Sizes by 99 Robots
-plugin URI:
-Description:
+plugin URI: https://99robots.com/products/?utm_source=plugin-uri&utm_medium=custom-image-sizes&utm_campaign=plugins-page
+Description: Custom Image Sizes by 99 Robots is a quick and simple way for you to add your own image sizes to your WordPress site.
 version: 1.0.0
 Author: 99 Robots
 Author URI: https://99robots.com
@@ -239,7 +239,7 @@ class NNR_Custom_Image_Sizes {
                         'width' 	=> $_wp_additional_image_sizes[ $_size ]['width'],
                         'height' 	=> $_wp_additional_image_sizes[ $_size ]['height'],
                         'crop' 		=> $_wp_additional_image_sizes[ $_size ]['crop'],
-                        'source'	=> __('Custom', self::$text_domain),
+                        'source'	=> __('Active Theme or Plugin', self::$text_domain),
                 );
 
             }
