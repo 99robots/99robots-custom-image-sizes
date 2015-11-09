@@ -3,7 +3,7 @@
 Plugin Name: Custom Image Sizes by 99 Robots
 plugin URI: https://99robots.com/products/?utm_source=plugin-uri&utm_medium=custom-image-sizes&utm_campaign=plugins-page
 Description: Custom Image Sizes by 99 Robots is a quick and simple way for you to add your own image sizes to your WordPress site.
-version: 1.0.0
+version: 1.1.0
 Author: 99 Robots
 Author URI: https://99robots.com
 License: GPL2
@@ -215,9 +215,11 @@ class NNR_Custom_Image_Sizes {
 		global $_wp_additional_image_sizes;
 
         $sizes = array();
+        $names = array();
         $get_intermediate_image_sizes = get_intermediate_image_sizes();
 
         // Create the full array with sizes and crop info
+
         foreach( $get_intermediate_image_sizes as $_size ) {
 
 	        $custom_name = array();
@@ -231,7 +233,9 @@ class NNR_Custom_Image_Sizes {
                 $sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
                 $sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
                 $sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
-                $sizes[ $_size ]['source'] = __('Core', self::$text_domain);
+                $sizes[ $_size ]['source'] = __('WP Core', self::$text_domain);
+
+                $names[] = $_size;
 
             } else if ( isset( $_wp_additional_image_sizes[ $_size ] ) && !in_array($_size, $custom_name)) {
 
@@ -241,6 +245,8 @@ class NNR_Custom_Image_Sizes {
                         'crop' 		=> $_wp_additional_image_sizes[ $_size ]['crop'],
                         'source'	=> __('Active Theme or Plugin', self::$text_domain),
                 );
+
+                $names[] = $_size;
 
             }
 
@@ -263,12 +269,20 @@ class NNR_Custom_Image_Sizes {
 					 isset($width[$i]) && $width[$i] != '' &&
 					 isset($height[$i]) && $height[$i] != '' ) {
 
-					$new_settings[] = array(
-						'name' 				=> stripcslashes(sanitize_text_field($name[$i])),
-						'width' 			=> stripcslashes(sanitize_text_field($width[$i])),
-						'height' 			=> stripcslashes(sanitize_text_field($height[$i])),
-						'crop' 				=> stripcslashes(sanitize_text_field($crop[$i])),
-					);
+					// Check if name has not been taken already
+
+					if ( !in_array(stripcslashes(sanitize_text_field($name[$i])), $names) ) {
+
+						$new_settings[] = array(
+							'name' 				=> stripcslashes(sanitize_text_field($name[$i])),
+							'width' 			=> stripcslashes(sanitize_text_field($width[$i])),
+							'height' 			=> stripcslashes(sanitize_text_field($height[$i])),
+							'crop' 				=> stripcslashes(sanitize_text_field($crop[$i])),
+						);
+
+						$names[] = stripcslashes(sanitize_text_field($name[$i]));
+
+					}
 				}
 			}
 
@@ -361,7 +375,7 @@ if ( !defined('NNROBOTS_CUSTOM_IMAGE_SIZES_PLUGIN_URL') ) {
 // Plugin verison
 
 if ( !defined('NNROBOTS_CUSTOM_IMAGE_SIZES_VERSION_NUM') ) {
-	define('NNROBOTS_CUSTOM_IMAGE_SIZES_VERSION_NUM', '1.0.0');
+	define('NNROBOTS_CUSTOM_IMAGE_SIZES_VERSION_NUM', '1.1.0');
 }
 
 endif;

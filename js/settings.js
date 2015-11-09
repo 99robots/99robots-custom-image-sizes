@@ -32,7 +32,15 @@ jQuery(document).ready(function($){
 
 	$(document).on('click', '.' + nnr_cis_settings_data.prefix + 'repeater-remove', function(){
 
-		$(this).parent().parent().remove();
+		$('#' + nnr_cis_settings_data.prefix + 'delete-image-size-modal').modal();
+
+		var delete_image_size = $(this);
+
+		$('.' + nnr_cis_settings_data.prefix + 'delete-image-size').click(function(){
+			delete_image_size.parent().parent().remove();
+		});
+
+		//$(this).parent().parent().remove();
 
 	});
 

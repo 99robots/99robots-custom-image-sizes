@@ -11,7 +11,6 @@
 				<h1 id="nnr-heading"><?php _e('Settings', self::$text_domain); ?>
 					<small>
 						<a class="nnr-heading-button-left btn btn-success <?php echo self::$prefix_dash; ?>repeater-add-new"><i class="fa fa-plus fa-lg"></i> <?php _e('Add New', self::$text_domain); ?></a>
-						<button class="nnr-heading-button-right btn btn-info" type="submit" name="submit"><i class="fa fa-hdd-o fa-lg"></i> <?php _e('Save', self::$text_domain); ?></button>
 					</small>
 				</h1>
 
@@ -88,7 +87,29 @@
 
 				<?php wp_nonce_field(self::$prefix . 'settings'); ?>
 
+				<p>
+					<button class="btn btn-info" type="submit" name="submit"><i class="fa fa-hdd-o fa-lg"></i> <?php _e('Save', self::$text_domain); ?></button>
+				</p>
+
 			</form>
+
+			<div class="modal fade" id="<?php echo self::$prefix_dash; ?>delete-image-size-modal">
+				<div class="modal-dialog" style="margin-top: 10vh;">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title"><?php _e('Are you sure?', self::$text_domain); ?></h4>
+						</div>
+						<div class="modal-body">
+							<p><?php _e('Are you sure you want to delete this image size? If so, all future image uploads will not have this custom image size generated.', self::$text_domain); ?></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-danger <?php echo self::$prefix_dash; ?>delete-image-size" data-dismiss="modal"><?php _e('Delete', self::$text_domain); ?></button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 
 		</div>
 

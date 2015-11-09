@@ -29,5 +29,9 @@ Also please check out our other [plugins](https://99robots.com/products/?utm_sou
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.1.0 =
+* ADDED: Delete modal to confirm that you want to delete a custom image size
+* IMPROVED: Checks for duplicate image sizes
+
+= 1.0.0 = 2015-11-2
 * Initial release :)
