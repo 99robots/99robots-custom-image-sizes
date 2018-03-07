@@ -213,7 +213,7 @@ class NNR_Custom_Image_Sizes {
 	 *
 	 * @return void
 	 */
-	static function enqueque_scripts() {
+	public function enqueque_scripts() {
 
 		// Style
 		wp_enqueue_style( self::$prefix . 'settings_css', 	$this->plugin_url() . 'css/settings.css' );
