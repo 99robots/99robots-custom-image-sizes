@@ -1,10 +1,10 @@
 === Custom Image Sizes by 99 Robots ===
-Contributors: 99robots, kjbenk, charliepatel
+Contributors: 99robots, charliepatel
 Donate link:
 Tags: image sizes, images, image, size, sizes, custom sizes, custom image, custom images
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 1.2.1
+Tested up to: 5.2.2
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,9 +29,12 @@ Also please check out our other [plugins](https://99robots.com/products/?utm_sou
 
 == Changelog ==
 
+= 1.2.2 = 2019-08-27
+* FIXED: Warnings & errors
+* Make compatible with WordPress 5.2.2
 
 = 1.2.1 = 2018-03-08
-* FIXED: Plugin not working 
+* FIXED: Plugin not working
 * Make compatible with WordPress 4.9.4
 * Refactor the code according to WordPress coding standards
 
