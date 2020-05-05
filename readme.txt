@@ -3,8 +3,8 @@ Contributors: 99robots, charliepatel
 Donate link:
 Tags: image sizes, images, image, size, sizes, custom sizes, custom image, custom images
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: 1.2.2
+Tested up to: 5.4.1
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,10 @@ Also please check out our other [plugins](https://99robots.com/products/?utm_sou
 2. Select your image size when inserting image into a post
 
 == Changelog ==
+
+= 1.2.3 = 2020-05-05
+* FIXED: Warnings & errors
+* Make compatible with WordPress 5.4.1
 
 = 1.2.2 = 2019-08-27
 * FIXED: Warnings & errors
