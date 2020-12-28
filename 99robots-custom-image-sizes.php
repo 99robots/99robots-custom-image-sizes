@@ -3,7 +3,7 @@
  * Plugin Name:	Custom Image Sizes by 99 Robots
  * Plugin URI:	https://draftpress.com/products/?utm_source=plugin-uri&utm_medium=custom-image-sizes&utm_campaign=plugins-page
  * Description:	Custom Image Sizes by 99 Robots is a quick and simple way for you to add your own image sizes to your WordPress site.
- * Version: 1.2.5
+ * Version: 1.2.6
  * Author: 99 Robots
  * Author URI: https://draftpress.com
  * License: GPL2
@@ -26,7 +26,7 @@ class NNR_Custom_Image_Sizes {
 	 * NNR_Custom_Image_Sizes version.
 	 * @var string
 	 */
-	public $version = '1.2.5';
+	public $version = '1.2.6';
 
 	/**
 	 * The single instance of the class.
