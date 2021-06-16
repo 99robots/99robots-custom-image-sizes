@@ -1,8 +1,8 @@
-jQuery(document).ready(function($){
+jQuery(function($){
 
 	// Add a new one
 
-	$('.' + nnr_cis_settings_data.prefix + 'repeater-add-new').click(function(){
+	$('.' + nnr_cis_settings_data.prefix + 'repeater-add-new').on("click", function(){
 
 		var new_row = '<tr class="' + nnr_cis_settings_data.prefix + 'repeater-item">' +
 			'<td class="' + nnr_cis_settings_data.prefix + 'repeater-item-name"><input type="text" class="form-control input-sm" name="' + nnr_cis_settings_data.prefix + 'name[]" value="New Image Size"/></td>' +
@@ -30,13 +30,13 @@ jQuery(document).ready(function($){
 
 	// Remove one
 
-	$(document).on('click', '.' + nnr_cis_settings_data.prefix + 'repeater-remove', function(){
+	$('.' + nnr_cis_settings_data.prefix + 'repeater-remove').on('click', function(){
 
 		$('#' + nnr_cis_settings_data.prefix + 'delete-image-size-modal').modal();
 
 		var delete_image_size = $(this);
 
-		$('.' + nnr_cis_settings_data.prefix + 'delete-image-size').click(function(){
+		$('.' + nnr_cis_settings_data.prefix + 'delete-image-size').on("click", function(){
 			delete_image_size.parent().parent().remove();
 		});
 
