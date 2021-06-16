@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:	Custom Image Sizes by 99 Robots
+ * Plugin Name:	Custom Image Sizes by DraftPress
  * Plugin URI:	https://draftpress.com/custom-image-sizes/
- * Description:	Custom Image Sizes by 99 Robots is a quick and simple way for you to add your own image sizes to your WordPress site.
+ * Description:	Custom Image Sizes by DraftPress is a quick and simple way for you to add your own image sizes to your WordPress site.
  * Version: 1.2.7
  * Author: DraftPress
  * Author URI: https://draftpress.com/
  * License: GPL2
  * License URI:	http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:	draftpress-custom-image-sizes
+ * Text Domain:	99robots-custom-image-sizes
  * Domain Path: /languages
  */
 
