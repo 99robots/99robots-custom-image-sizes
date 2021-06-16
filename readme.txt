@@ -31,7 +31,7 @@ Also please check out our other [plugins](https://draftpress.com/products/?utm_s
 
 = 1.2.7 = 2021-06-10
 * Updated to make compatible with WordPress 5.7.2
-* FIXED: Event shorthand depracation issues.
+* FIXED: Event shorthand deprecation issues.
 
 = 1.2.6 = 2020-12-28
 * Updated to make compatible with WordPress 5.6
