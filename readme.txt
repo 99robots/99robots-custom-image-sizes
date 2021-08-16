@@ -3,8 +3,8 @@ Contributors: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: image sizes, images, image, size, sizes, custom sizes, custom image, custom images
 Requires at least: 4.5
-Tested up to: 5.7.2
-Stable tag: 1.2.7
+Tested up to: 5.8
+Stable tag: 1.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Also please check out our other [plugins](https://draftpress.com/products/?utm_s
 
 == Installation ==
 
-1. Upload `99robots-custom-image-sizes` to the `/wp-content/plugins/` directory
+1. Upload `draftpress-custom-image-sizes` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to plugins page to see instructions for shortcode and php template tags
 
@@ -28,6 +28,9 @@ Also please check out our other [plugins](https://draftpress.com/products/?utm_s
 2. Select your image size when inserting image into a post
 
 == Changelog ==
+
+= 1.2.8 = 2021-08-16
+* Updated to make compatible with WordPress 5.8
 
 = 1.2.7 = 2021-06-23
 * Updated to make compatible with WordPress 5.7.2
