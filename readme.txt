@@ -18,7 +18,7 @@ Also please check out our other [plugins](https://draftpress.com/products/?utm_s
 
 == Installation ==
 
-1. Upload `draftpress-custom-image-sizes` to the `/wp-content/plugins/` directory
+1. Upload `99robots-custom-image-sizes` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to plugins page to see instructions for shortcode and php template tags
 
