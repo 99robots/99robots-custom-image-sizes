@@ -30,7 +30,7 @@ Also please check out our other [plugins](https://draftpress.com/products/?utm_s
 == Changelog ==
 
 = 1.2.8 = 2022-07-15
-* Updated to make compatible with WordPress 6.0.1
+* Compatible with WordPress 6.0.1
 
 = 1.2.7 = 2021-06-23
 * Updated to make compatible with WordPress 5.7.2
