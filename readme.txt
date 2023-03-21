@@ -3,8 +3,9 @@ Contributors: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: image sizes, images, image, size, sizes, custom sizes, custom image, custom images
 Requires at least: 4.5
-Tested up to: 6.0.1
-Stable tag: 1.2.8
+Tested up to: 6.2
+Requires PHP: 5.6
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +15,9 @@ Custom Image Sizes by 99 Robots is a quick and simple way for you to add your ow
 
 Custom Image Sizes by 99 Robots is a quick and simple way for you to add your own image sizes to your WordPress site.
 
-Also please check out our other [plugins](https://draftpress.com/products/?utm_source=wprepo&utm_medium=custom-image-sizes&utm_campaign=desc) :)
+You can view this plugin on GitHub at: [https://github.com/99robots/99robots-custom-image-sizes](https://github.com/99robots/99robots-custom-image-sizes)
+
+Also, please [check out our other plugins](https://draftpress.com/products/?utm_source=wprepo&utm_medium=custom-image-sizes&utm_campaign=desc) :)
 
 == Installation ==
 
@@ -28,6 +31,11 @@ Also please check out our other [plugins](https://draftpress.com/products/?utm_s
 2. Select your image size when inserting image into a post
 
 == Changelog ==
+= 1.2.9 = 2023-21-03
+* Removed code that was potentially causing timezone issues.
+* Added mention of GitHub to plugin description.
+* Added & updated some requirement & testing details for the plugin.
+
 = 1.2.8 = 2022-08-05
 * Compatible with WordPress 6.0.1
 
