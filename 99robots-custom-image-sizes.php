@@ -123,9 +123,6 @@ class NNR_Custom_Image_Sizes {
 	 */
 	private function hooks() {
 
-		// Set default timezone
-		date_default_timezone_set( timezone_name_from_abbr( null, (int) get_option( 'gmt_offset' ) * 3600 , true ) );
-
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'init', array( $this, 'init' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_links' ) );
