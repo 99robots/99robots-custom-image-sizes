@@ -3,7 +3,7 @@ Contributors: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: image sizes, images, image, size, sizes, custom sizes, custom image, custom images
 Requires at least: 4.5
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 5.6
 Stable tag: 1.2.9
 License: GPLv2 or later
@@ -31,10 +31,11 @@ Also, please [check out our other plugins](https://draftpress.com/products/?utm_
 2. Select your image size when inserting image into a post
 
 == Changelog ==
-= 1.2.9 = 2023-21-03
+= 1.2.9 = 2023-07-26
 * Removed code that was potentially causing timezone issues.
 * Added mention of GitHub to plugin description.
 * Added & updated some requirement & testing details for the plugin.
+* Compatible with WordPress 6.3.x.
 
 = 1.2.8 = 2022-08-05
 * Compatible with WordPress 6.0.1
@@ -49,7 +50,7 @@ Also, please [check out our other plugins](https://draftpress.com/products/?utm_
 = 1.2.5 = 2020-09-14
 * Updated to make compatible with WordPress 5.5.1
 
-= 1.2.4 = 2020-27-05
+= 1.2.4 = 2020-05-27
 * DraftPress added as a contributor
 
 = 1.2.3 = 2020-05-05
