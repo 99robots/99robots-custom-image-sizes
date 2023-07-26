@@ -5,7 +5,7 @@
  * Description:	Custom Image Sizes by DraftPress is a quick and simple way for you to add your own image sizes to your WordPress site.
  * Version: 1.2.9
  * Requires at least: 4.5
- * Tested up to: 6.2
+ * Tested up to: 6.3
  * Requires PHP: 5.6
  * Author: DraftPress
  * Author URI: https://draftpress.com/
