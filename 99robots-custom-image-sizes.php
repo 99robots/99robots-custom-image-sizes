@@ -11,7 +11,7 @@
  * Author URI: https://draftpress.com/
  * License: GPL2
  * License URI:	http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:	99robots-custom-image-sizes
+ * Text Domain:	custom-image-sizes-by-99-robots
  * Domain Path: /languages
  */
 
@@ -86,14 +86,14 @@ class NNR_Custom_Image_Sizes {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', '99robots-custom-image-sizes' ), $this->version );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'custom-image-sizes-by-99-robots' ), $this->version );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', '99robots-custom-image-sizes' ), $this->version );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'custom-image-sizes-by-99-robots' ), $this->version );
 	}
 
 	/**
@@ -139,15 +139,15 @@ class NNR_Custom_Image_Sizes {
 	 */
 	public function load_plugin_textdomain() {
 
-		$locale = apply_filters( 'plugin_locale', get_locale(), '99robots-custom-image-sizes' );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'custom-image-sizes-by-99-robots' );
 
 		load_textdomain(
-			'99robots-custom-image-sizes',
+			'custom-image-sizes-by-99-robots',
 			WP_LANG_DIR . '/custom-image-sizes-by-99-robots/custom-image-sizes-by-99-robots-' . $locale . '.mo'
 		);
 
 		load_plugin_textdomain(
-			'99robots-custom-image-sizes',
+			'custom-image-sizes-by-99-robots',
 			false,
 			$this->plugin_dir() . '/languages/'
 		);
@@ -184,7 +184,7 @@ class NNR_Custom_Image_Sizes {
 	 */
 	public function plugin_links( $links ) {
 
-		$settings_link = '<a href="' . get_admin_url() . 'options-general.php?page=' . self::$settings_page . '">' . esc_html__( 'Settings', '99robots-custom-image-sizes' ) . '</a>';
+		$settings_link = '<a href="' . get_admin_url() . 'options-general.php?page=' . self::$settings_page . '">' . esc_html__( 'Settings', 'custom-image-sizes-by-99-robots' ) . '</a>';
 		array_unshift( $links, $settings_link );
 
 		return $links;
@@ -199,8 +199,8 @@ class NNR_Custom_Image_Sizes {
 
 		$settings_page_load = add_submenu_page(
 			'options-general.php',
-			esc_html__( 'Custom Image Sizes', '99robots-custom-image-sizes' ),
-			esc_html__( 'Custom Image Sizes', '99robots-custom-image-sizes' ),
+			esc_html__( 'Custom Image Sizes', 'custom-image-sizes-by-99-robots' ),
+			esc_html__( 'Custom Image Sizes', 'custom-image-sizes-by-99-robots' ),
 			'manage_options',
 			self::$settings_page,
 			array( $this, 'render_settings' )
@@ -275,7 +275,7 @@ class NNR_Custom_Image_Sizes {
 				$sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
 				$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
 				$sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
-				$sizes[ $_size ]['source'] = esc_html__( 'WP Core', '99robots-custom-image-sizes' );
+				$sizes[ $_size ]['source'] = esc_html__( 'WP Core', 'custom-image-sizes-by-99-robots' );
 
 				$names[] = $_size;
 
@@ -285,7 +285,7 @@ class NNR_Custom_Image_Sizes {
 					'width' 	=> $_wp_additional_image_sizes[ $_size ]['width'],
 					'height' 	=> $_wp_additional_image_sizes[ $_size ]['height'],
 					'crop' 		=> $_wp_additional_image_sizes[ $_size ]['crop'],
-					'source'	=> esc_html__( 'Active Theme or Plugin', '99robots-custom-image-sizes' ),
+					'source'	=> esc_html__( 'Active Theme or Plugin', 'custom-image-sizes-by-99-robots' ),
 				);
 
 				$names[] = $_size;
