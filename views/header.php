@@ -1,9 +1,9 @@
 <?php
 /**
  * Header for the plugin.
- * 
- * Php Version 7.2.10 
- * 
+ *
+ * Php Version 7.2.10
+ *
  * @category Plugin
  * @package  DraftPress_CustomImageSizes
  * @author   Draft <contact@draftpress.com>
@@ -24,7 +24,7 @@
                 '99robots-custom-image-sizes'
             ); ?></span>
         <span class="nnr-product-version">
-            <?php echo wps_custom_sizes()->get_version() ?>
+            <?php echo Wps_Custom_sizes()->getVersion() ?>
         </span>
     </div>
     <a href="http://draftpress.com/products" 

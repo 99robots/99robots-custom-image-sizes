@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Custom Image Sizes by DraftPress
  * Plugin URI: https://wordpress.org/plugins/custom-image-sizes-by-draftpress/
- * Description: Custom Image Sizes by DraftPress is a quick 
+ * Description: Custom Image Sizes by DraftPress is a quick
  * and simple way for you to add your own image sizes to your WordPress site.
  * Version: 1.2.10
  * Requires at least: 4.5
@@ -14,7 +14,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: 99robots-custom-image-sizes
  * Domain Path: /languages
- * Php Version 7.2.10   
+ * Php Version 7.2.10
  *
  * @category Plugin
  * @package  DraftPress_CustomImageSizes
@@ -45,28 +45,28 @@ class NNR_Custom_Image_Sizes
 {
     /**
      * NNR_Custom_Image_Sizes version.
-     * 
+     *
      * @var string
      */
     public $version = "1.2.9";
 
     /**
      * The single instance of the class.
-     * 
+     *
      * @var NNR_Custom_Image_Sizes
      */
     protected static $instance = null;
 
     /**
      * Plugin url.
-     * 
+     *
      * @var string
      */
     private $_plugin_url = null;
 
     /**
      * Plugin path.
-     * 
+     *
      * @var string
      */
     private $_plugin_dir = null;
@@ -108,7 +108,7 @@ class NNR_Custom_Image_Sizes
 
     /**
      * Cloning is forbidden.
-     * 
+     *
      * @return void
      */
     public function __clone()
@@ -143,7 +143,7 @@ class NNR_Custom_Image_Sizes
      */
     public static function instance()
     {
-        if (is_null(self::$instance) 
+        if (is_null(self::$instance)
             && !(self::$instance instanceof NNR_Custom_Image_Sizes)
         ) {
             self::$instance = new NNR_Custom_Image_Sizes();
@@ -199,10 +199,10 @@ class NNR_Custom_Image_Sizes
                 ".mo"
         );
 
-        loadPluginTextdomain(
+        load_plugin_textdomain(
             "99robots-custom-image-sizes",
             false,
-            $this->plugin_dir() . "/languages/"
+            $this->pluginDir() . "/languages/"
         );
     }
 
@@ -241,12 +241,12 @@ class NNR_Custom_Image_Sizes
      * Hooks to 'plugin_action_links_' filter.
      *
      * @param array $links The existing plugin action links.
-     * 
+     *
      * @return array The modified plugin action links.
      */
     public function pluginLinks($links)
     {
-        $settings_link 
+        $settings_link
             = '<a href="' .
             get_admin_url() .
             "options-general.php?page=" .
@@ -278,7 +278,7 @@ class NNR_Custom_Image_Sizes
     }
 
     /**
-     * Hooks into the 'admin_print_scripts-$page' 
+     * Hooks into the 'admin_print_scripts-$page'
      * to inlcude the scripts for the settings page
      *
      * @return void
@@ -360,7 +360,7 @@ class NNR_Custom_Image_Sizes
             foreach ($settings as $size) {
                 $custom_name[] = $size["name"];
             }
-            $imagesSizes 
+            $imagesSizes
                 = array(
                 "thumbnail",
                 "medium",
@@ -377,7 +377,7 @@ class NNR_Custom_Image_Sizes
                 );
 
                 $names[] = $_size;
-            } elseif (isset($_wp_additional_image_sizes[$_size]) 
+            } elseif (isset($_wp_additional_image_sizes[$_size])
                 && !in_array($_size, $custom_name)
             ) {
                 $sizes[$_size] = [
@@ -395,7 +395,7 @@ class NNR_Custom_Image_Sizes
         }
 
         // Save data and check nonce
-        if (isset($_POST["submit"]) 
+        if (isset($_POST["submit"])
             && check_admin_referer(self::$prefix . "settings")
         ) {
             $new_settings = [];
@@ -415,18 +415,18 @@ class NNR_Custom_Image_Sizes
             for ($i = 0; $i < count($name); $i++) {
                 $nameA = sanitize_text_field($name[$i]);
                 $nameB = stripcslashes($nameA);
-                if (isset($name[$i]) && "" !== $name[$i] 
-                    &&  isset($width[$i]) && "" !== $width[$i] 
+                if (isset($name[$i]) && "" !== $name[$i]
+                    &&  isset($width[$i]) && "" !== $width[$i]
                     &&  isset($height[$i]) && "" !== $height[$i]
                 ) {
                     // Check if name has not been taken already
                     if (!in_array($nameB, $names)) {
                         $new_settings[] = [
-                            "name" => 
+                            "name" =>
                             stripcslashes(sanitize_text_field($name[$i])),
-                            "width" => 
+                            "width" =>
                             stripcslashes(sanitize_text_field($width[$i])),
-                            "height" => 
+                            "height" =>
                             stripcslashes(sanitize_text_field($height[$i])),
                             "crop" => stripcslashes(sanitize_text_field($crop[$i])),
                         ];
@@ -476,7 +476,7 @@ class NNR_Custom_Image_Sizes
      * Update the settings
      *
      * @param mixed $settings The new settings to update
-     * 
+     *
      * @return void
      */
     public function updateSettings($settings)
@@ -493,13 +493,13 @@ class NNR_Custom_Image_Sizes
 
     /**
      * Get plugin directory.
-     * 
+     *
      * @return string
      */
     public function pluginDir()
     {
         if (is_null($this->_plugin_dir)) {
-            $this->_plugin_dir 
+            $this->_plugin_dir
                 = untrailingslashit(plugin_dir_path(__FILE__)) . "/";
         }
 
