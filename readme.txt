@@ -1,5 +1,5 @@
 === Custom Image Sizes by 99 Robots ===
-Contributors: 99robots, charliepatel, DraftPress
+Contributor: 99robots, charliepatel, DraftPress
 Donate link:
 Tags: image sizes, images, image, size, sizes, custom sizes, custom image, custom images
 Requires at least: 4.5
