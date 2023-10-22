@@ -438,10 +438,13 @@ class NNR_Custom_Image_Sizes
             
 
             self::updateSettings($new_settings);
+            $settings_page_url = get_admin_url() .
+                "options-general.php?page=" .
+                self::$settings_page;
             ?>
             <script type="text/javascript">
-                window.location= "<?php echo get_admin_url(); ?>
-                options-general.php?page=<?php echo self::$settings_page; ?>";
+                window.location= 
+                "<?php echo $settings_page_url; ?>";
             </script>
             <?php
         }

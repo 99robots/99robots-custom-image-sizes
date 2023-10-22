@@ -12,6 +12,7 @@
  * @link     https://draftpress.com/
  */
 ?>
+
 <div class="nnr-wrap">
 
     <?php require_once 'header.php'; ?>
@@ -28,9 +29,7 @@
                         '99robots-custom-image-sizes'
                     ) ?>
                     <small>
-                        <a class="nnr-heading-button-left btn btn-success 
-                        <?php echo self::$prefix_dash ?>
-                        repeater-add-new">
+                        <a class="<?php echo $settingRepeaterAddNewClass; ?>">
                         <i class="fa fa-plus fa-lg"></i> 
                         <?php esc_html_e(
                             'Add New',
@@ -38,7 +37,7 @@
                         ) ?></a>
                     </small>
                 </h1>
-
+                
                 <table class="table table-responsive table-striped">
                     <thead>
                         <th><?php esc_html_e(
@@ -63,23 +62,21 @@
                         ); ?></th>
                     </thead>
 
-                    <tbody class="<?php echo self::$prefix_dash ?>
-                    repeater-container">
+                    <tbody class="<?php echo $settingRepeaterContainerClass; ?>">
 
                         <?php foreach ($sizes as $key => $size) { ?>
-                            <tr class="<?php echo self::$prefix_dash ?>
-                            repeater-item">
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-name">
+                            <tr class="<?php echo $settingRepeaterItemClass;?>">
+                                <td 
+                                class="<?php echo $settingRepeaterItemNameCls; ?>">
                                 <?php echo $key; ?></td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-width">
+                                <td 
+                                class="<?php echo $settingRepeaterItemWidthCls; ?>">
                                 <?php echo $size['width']; ?> px</td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-height">
+                                <td 
+                                class="<?php echo $settingRepeaterItemHeightCls; ?>">
                                 <?php echo $size['height']; ?> px</td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-crop">
+                                <td class="
+                                <?php echo $settinsRepeaterItemCropClass; ?>">
                                 <?php
 
                                 $crop = esc_html__(
@@ -99,36 +96,35 @@
                                 echo $crop;
                                 ?>
                             </td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-action">
+                                <td 
+                                class="<?php echo $settingRepeaterItemActionCls; ?>">
                                 <?php echo $size['source']; ?></td>
                             </tr>
 
                         <?php } ?>
 
                         <?php foreach ($settings as $key => $size) { ?>
-                            <tr class="<?php echo self::$prefix_dash ?>
-                            repeater-item">
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-name">
+                            <tr class="<?php echo $settingRepeaterItemClass; ?>">
+                                <td 
+                                class="<?php echo $settingRepeaterItemNameCls; ?>">
                                     <input type="text" class="form-control input-sm" 
                                     name="<?php echo self::$prefix_dash ?>name[]" 
                                     value="<?php echo $size['name']; ?>"/>
                                 </td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-width">
+                                <td 
+                                class="<?php echo $settingRepeaterItemWidthCls; ?>">
                                     <input type="text" class="form-control input-sm" 
                                     name="<?php echo self::$prefix_dash ?>width[]" 
                                     value="<?php echo $size['width']; ?>"/>
                                 </td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-height">
+                                <td 
+                                class="<?php echo $settingRepeaterItemHeightCls; ?>">
                                     <input type="text" class="form-control input-sm" 
                                     name="<?php echo self::$prefix_dash ?>height[]" 
                                     value="<?php echo $size['height']; ?>"/>
                                 </td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-crop">
+                                <td 
+                                class="<?php echo $settingRepeaterItemCropClass;?>">
                                     <select class="form-control input-sm" 
                                     name="<?php echo self::$prefix_dash ?>crop[]">
                                         <option value="false" 
@@ -254,10 +250,11 @@
                                         </option>
                                     </select>
                                 </td>
-                                <td class="<?php echo self::$prefix_dash ?>
-                                repeater-item-action">
-                                    <i class="<?php echo self::$prefix_dash ?>
-                                    repeater-remove fa fa-trash-o"></i>
+                                <td 
+                                class="<?php echo $settingRepeaterItemActionCls; ?>">
+                                    <i 
+                                    class="<?php echo $settingRepeaterRemoveClass?>">
+                                    </i>
                                 </td>
                             </tr>
 
@@ -275,9 +272,11 @@
                 </p>
 
             </form>
-
-            <div class="modal fade" id="<?php echo self::$prefix_dash ?>
-            delete-image-size-modal">
+            <?php
+            $settingsModalId
+                = self::$prefix_dash .'delete-image-size-modal';
+            ?>
+            <div class="modal fade" id="<?php echo $settingsModalId; ?>">
                 <div class="modal-dialog" style="margin-top: 10vh;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -303,8 +302,8 @@
                             <button type="button" class="btn btn-default" 
                             data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-danger 
-                            <?php echo self::$prefix_dash ?>
-                            delete-image-size" data-dismiss="modal">
+                            <?php echo self::$prefix_dash ?>delete-image-size" 
+                            data-dismiss="modal">
                                 <?php
                                 esc_html_e(
                                     'Delete',
