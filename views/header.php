@@ -11,52 +11,35 @@
  * (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
  * @link     https://draftpress.com/
  */
+
 ?>
 
 <?php
-$settingRepeaterAddNewClass
-    = 'nnr-heading-button-left btn btn-success ';
-$settingRepeaterAddNewClass
-    .= self::$prefix_dash . 'repeater-add-new';
-
-$settingRepeaterContainerClass
-    = self::$prefix_dash .'repeater-container';
-$settingRepeaterItemCropClass
-    = self::$prefix_dash .'repeater-item-crop';
-$settingRepeaterItemActionCls
-    = self::$prefix_dash . 'repeater-item-action';
-$settingRepeaterRemoveClass
-    = self::$prefix_dash. 'repeater-remove fa fa-trash-o';
-$settingRepeaterItemClass
-    = self::$prefix_dash . 'repeater-item';
-$settingRepeaterItemNameCls
-    = self::$prefix_dash . 'repeater-item-name';
-
-$settingRepeaterItemWidthCls
-    = self::$prefix_dash . 'repeater-item-width';
-
-$settingRepeaterItemHeightCls
-    = self::$prefix_dash . 'repeater-item-height';
-
+$setting_repeater_add_new_class     = 'nnr-heading-button-left btn btn-success ' . self::$prefix_dash . 'repeater-add-new';
+$setting_repeater_container_class   = self::$prefix_dash . 'repeater-container';
+$setting_repeater_item_crop_class   = self::$prefix_dash . 'repeater-item-crop';
+$setting_repeater_item_action_class = self::$prefix_dash . 'repeater-item-action';
+$setting_repeater_remove_class      = self::$prefix_dash . 'repeater-remove fa fa-trash-o';
+$setting_repeater_item_class        = self::$prefix_dash . 'repeater-item';
+$setting_repeater_item_name_cls     = self::$prefix_dash . 'repeater-item-name';
+$setting_repeater_item_width_cls    = self::$prefix_dash . 'repeater-item-width';
+$setting_repeater_item_height_cls   = self::$prefix_dash . 'repeater-item-height';
 ?>
 
 <!-- Header -->
 <div class="nnr-header">
-    <div class="nnr-logo"></div>
-    <div class="nnr-product-details">
-        <span class="nnr-product-name">
-            <?php
-            esc_html_e(
-                'Custom Image Sizes',
-                '99robots-custom-image-sizes'
-            ); ?></span>
-        <span class="nnr-product-version">
-            <?php echo Wps_Custom_sizes()->getVersion() ?>
-        </span>
-    </div>
-    <a href="http://draftpress.com/products" 
-    target="_blank">
-    <button class="nnr-header-button pull-right">
-        <?php esc_html_e('More Products', '99robots-custom-image-sizes') ?>
-    </button></a>
+	<div class="nnr-logo"></div>
+	<div class="nnr-product-details">
+		<span class="nnr-product-name">
+			<?php esc_html_e( 'Custom Image Sizes', '99robots-custom-image-sizes' ); ?>
+		</span>
+		<span class="nnr-product-version">
+			<?php echo esc_html( wps_custom_sizes()->get_version() ); ?>
+		</span>
+	</div>
+	<a href="http://draftpress.com/products" target="_blank">
+		<button class="nnr-header-button pull-right">
+			<?php esc_html_e( 'More Products', '99robots-custom-image-sizes' ); ?>
+		</button>
+	</a>
 </div>

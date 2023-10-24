@@ -24,10 +24,9 @@
  * @link     https://draftpress.com/
  */
 
-
 // If this file is called directly, abort.
-if (!defined("WPINC")) {
-    die();
+if ( ! defined( 'WPINC' ) ) {
+	die();
 }
 
 
@@ -41,498 +40,503 @@ if (!defined("WPINC")) {
  * (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
  * @link     https://draftpress.com/products/
  */
-class NNR_Custom_Image_Sizes
-{
-    /**
-     * NNR_Custom_Image_Sizes version.
-     *
-     * @var string
-     */
-    public $version = "1.2.9";
+class NNR_Custom_Image_Sizes {
 
-    /**
-     * The single instance of the class.
-     *
-     * @var NNR_Custom_Image_Sizes
-     */
-    protected static $instance = null;
+	/**
+	 * NNR_Custom_Image_Sizes version.
+	 *
+	 * @var string
+	 */
+	public $version = '1.2.9';
 
-    /**
-     * Plugin url.
-     *
-     * @var string
-     */
-    private $_plugin_url = null;
+	/**
+	 * The single instance of the class.
+	 *
+	 * @var NNR_Custom_Image_Sizes
+	 */
+	protected static $instance = null;
 
-    /**
-     * Plugin path.
-     *
-     * @var string
-     */
-    private $_plugin_dir = null;
+	/**
+	 * Plugin url.
+	 *
+	 * @var string
+	 */
+	private $plugin_url = null;
 
-    /**
-     * Setting manager.
-     *
-     * @var WPIS_Settings
-     */
-    public $settings = null;
+	/**
+	 * Plugin path.
+	 *
+	 * @var string
+	 */
+	private $plugin_dir = null;
 
-
-    /**
-     * Prefix
-     *
-     * (default value: 'nnr_custom_image_sizes_')
-     *
-     * @var string
-     */
-    static $prefix = "nnr_custom_image_sizes_";
-
-    /**
-     * Prefix Dash
-     *
-     * (default value: 'nnr-cis-')
-     *
-     * @var string
-     */
-    static $prefix_dash = "nnr-cis-";
-
-    /**
-     * Settings Page
-     *
-     * (default value: 'nnr-cis-settings-page')
-     *
-     * @var string
-     */
-    static $settings_page = "nnr-cis-settings-page";
-
-    /**
-     * Cloning is forbidden.
-     *
-     * @return void
-     */
-    public function __clone()
-    {
-        wc_doing_it_wrong(
-            __FUNCTION__,
-            __("Cheatin&#8217; huh?", "99robots-custom-image-sizes"),
-            $this->version
-        );
-    }
-
-    /**
-     * Unserializing instances of this class is forbidden.
-     *
-     * @return void
-     */
-    public function __wakeup()
-    {
-        wc_doing_it_wrong(
-            __FUNCTION__,
-            __("Cheatin&#8217; huh?", "99robots-custom-image-sizes"),
-            $this->version
-        );
-    }
-
-    /**
-     * Main NNR_Custom_Image_Sizes instance.
-     *
-     * Ensure only one instance is loaded or can be loaded.
-     *
-     * @return NNR_Custom_Image_Sizes
-     */
-    public static function instance()
-    {
-        if (is_null(self::$instance)
-            && !(self::$instance instanceof NNR_Custom_Image_Sizes)
-        ) {
-            self::$instance = new NNR_Custom_Image_Sizes();
-            self::$instance->_hooks();
-        }
-
-        return self::$instance;
-    }
-
-    /**
-     * NNR_Custom_Image_Sizes constructor.
-     */
-    private function __construct()
-    {
-    }
-
-    /**
-     * Add hooks to begin.
-     *
-     * @return void
-     */
-    private function _hooks()
-    {
-        add_action("plugins_loaded", [$this, "loadPluginTextdomain"]);
-        add_action("init", [$this, "init"]);
-        add_filter(
-            "plugin_action_links_" . plugin_basename(__FILE__),
-            [$this, "pluginLinks"]
-        );
-        add_action("admin_menu", [$this, "registerPages"]);
-        add_filter("image_size_names_choose", [$this, "showCustomSizes"]);
-    }
+	/**
+	 * Setting manager.
+	 *
+	 * @var WPIS_Settings
+	 */
+	public $settings = null;
 
 
-    /**
-     * Load the plugin text domain for translation.
-     *
-     * @return void
-     */
-    public function loadPluginTextdomain()
-    {
-        $locale = apply_filters(
-            "plugin_locale",
-            get_locale(),
-            "99robots-custom-image-sizes"
-        );
+	/**
+	 * Prefix
+	 *
+	 * (default value: 'nnr_custom_image_sizes_')
+	 *
+	 * @var string
+	 */
+	private static $prefix = 'nnr_custom_image_sizes_';
 
-        load_textdomain(
-            "99robots-custom-image-sizes",
-            WP_LANG_DIR .
-                "/custom-image-sizes-by-99-robots/custom-image-sizes-by-99-robots-" .
-                $locale .
-                ".mo"
-        );
+	/**
+	 * Prefix Dash
+	 *
+	 * (default value: 'nnr-cis-')
+	 *
+	 * @var string
+	 */
+	private static $prefix_dash = 'nnr-cis-';
 
-        load_plugin_textdomain(
-            "99robots-custom-image-sizes",
-            false,
-            $this->pluginDir() . "/languages/"
-        );
-    }
+	/**
+	 * Settings Page
+	 *
+	 * (default value: 'nnr-cis-settings-page')
+	 *
+	 * @var string
+	 */
+	private static $settings_page = 'nnr-cis-settings-page';
 
-    
-    /**
-     * Runs on the init hook.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function init()
-    {
-        // Add Image Sizes
-        $settings = $this->getSettings();
 
-        foreach ($settings as $size) {
-            $crop = false;
-            if ("true" === $size["crop"]) {
-                $crop = true;
-            } else {
-                $crop = explode("_", $size["crop"]);
-            }
+	/**
+	 * Cloning is forbidden.
+	 *
+	 * @return void
+	 */
+	public function __clone() {
+		wc_doing_it_wrong(
+			__FUNCTION__,
+			__( 'Cheatin&#8217; huh?', '99robots-custom-image-sizes' ),
+			$this->version
+		);
+	}
 
-            add_image_size(
-                $size["name"],
-                intval($size["width"]),
-                intval($size["height"]),
-                $crop
-            );
-        }
-    }
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @return void
+	 */
+	public function __wakeup() {
+		wc_doing_it_wrong(
+			__FUNCTION__,
+			__( 'Cheatin&#8217; huh?', '99robots-custom-image-sizes' ),
+			$this->version
+		);
+	}
 
-   
-    /**
-     * Hooks to 'plugin_action_links_' filter.
-     *
-     * @param array $links The existing plugin action links.
-     *
-     * @return array The modified plugin action links.
-     */
-    public function pluginLinks($links)
-    {
-        $settings_link
-            = '<a href="' .
-            get_admin_url() .
-            "options-general.php?page=" .
-            self::$settings_page .
-            '">' .
-            esc_html__("Settings", "99robots-custom-image-sizes") .
-            "</a>";
-        array_unshift($links, $settings_link);
+	/**
+	 * Main NNR_Custom_Image_Sizes instance.
+	 *
+	 * Ensure only one instance is loaded or can be loaded.
+	 *
+	 * @return NNR_Custom_Image_Sizes
+	 */
+	public static function instance() {
+		if ( is_null( self::$instance )
+			&& ! ( self::$instance instanceof NNR_Custom_Image_Sizes )
+		) {
+			self::$instance = new NNR_Custom_Image_Sizes();
+			self::$instance->hooks();
+		}
 
-        return $links;
-    }
+		return self::$instance;
+	}
 
-    /**
-     * Hooks intot the 'admin_menu' hook to show the settings page
-     *
-     * @return void
-     */
-    public function registerPages()
-    {
-        $settings_page_load = add_submenu_page(
-            "options-general.php",
-            esc_html__("Custom Image Sizes", "99robots-custom-image-sizes"),
-            esc_html__("Custom Image Sizes", "99robots-custom-image-sizes"),
-            "manage_options",
-            self::$settings_page,
-            [$this, "renderSettings"]
-        );
-        add_action("load-$settings_page_load", [$this, "enquequeScripts"]);
-    }
+	/**
+	 * NNR_Custom_Image_Sizes constructor.
+	 */
+	private function __construct() {
+	}
 
-    /**
-     * Hooks into the 'admin_print_scripts-$page'
-     * to inlcude the scripts for the settings page
-     *
-     * @return void
-     */
-    public function enquequeScripts()
-    {
-        // Style
-        wp_enqueue_style(
-            self::$prefix . "settings_css",
-            $this->pluginUrl() . "css/settings.css"
-        );
-        wp_enqueue_style(
-            self::$prefix . "bootstrap_css",
-            $this->pluginUrl() . "css/nnr-bootstrap.min.css"
-        );
-        wp_enqueue_style(
-            self::$prefix . "fontawesome_css",
-            $this->pluginUrl() . "css/font-awesome.min.css"
-        );
+	/**
+	 * Add hooks to begin.
+	 *
+	 * @return void
+	 */
+	private function hooks() {
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'init' ) );
+		add_filter(
+			'plugin_action_links_' . plugin_basename( __FILE__ ),
+			array( $this, 'plugin_links' )
+		);
+		add_action( 'admin_menu', array( $this, 'register_pages' ) );
+		add_filter( 'image_size_names_choose', array( $this, 'show_custom_sizes' ) );
+	}
 
-        // Script
-        wp_enqueue_script(
-            self::$prefix . "bootstrap_js",
-            $this->pluginUrl() . "js/bootstrap.min.js"
-        );
-        wp_enqueue_script(
-            self::$prefix . "settings_js",
-            $this->pluginUrl() . "js/settings.js",
-            ["jquery", "jquery-ui-sortable"]
-        );
-        wp_localize_script(
-            self::$prefix . "settings_js",
-            "nnr_cis_settings_data",
-            [
-                "prefix" => self::$prefix_dash,
-            ]
-        );
-    }
 
-    
-    /**
-     * Show the custom image sizes
-     *
-     * @param mixed $sizes An array of custom image sizes.
-     *
-     * @return void
-     */
-    public function showCustomSizes($sizes)
-    {
-        $settings = $this->getSettings();
+	/**
+	 * Load the plugin text domain for translation.
+	 *
+	 * @return void
+	 */
+	public function load_plugin_textdomain() {
+		$locale = apply_filters(
+			'plugin_locale',
+			get_locale(),
+			'99robots-custom-image-sizes'
+		);
 
-        $new_sizes = [];
-        foreach ($settings as $size) {
-            $new_sizes[$size["name"]] = $size["name"];
-        }
+		load_textdomain(
+			'99robots-custom-image-sizes',
+			WP_LANG_DIR .
+				'/custom-image-sizes-by-99-robots/custom-image-sizes-by-99-robots-' .
+				$locale .
+				'.mo'
+		);
 
-        return array_merge($sizes, $new_sizes);
-    }
+		load_plugin_textdomain(
+			'99robots-custom-image-sizes',
+			false,
+			$this->plugin_dir() . '/languages/'
+		);
+	}
 
-    /**
-     * This is the main function for the settings page
-     *
-     * @return void
-     */
-    public function renderSettings()
-    {
-        global $_wp_additional_image_sizes;
 
-        $settings = $this->getSettings();
+	/**
+	 * Runs on the init hook.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function init() {
+		// Add Image Sizes.
+		$settings = $this->get_settings();
 
-        // Get all the image sizes registered
-        $sizes = [];
-        $names = [];
-        $get_intermediate_image_sizes = get_intermediate_image_sizes();
+		foreach ( $settings as $size ) {
+			$crop = false;
+			if ( 'true' === $size['crop'] ) {
+				$crop = true;
+			} else {
+				$crop = explode( '_', $size['crop'] );
+			}
 
-        // Create the full array with sizes and crop info
-        foreach ($get_intermediate_image_sizes as $_size) {
-            $custom_name = [];
-            foreach ($settings as $size) {
-                $custom_name[] = $size["name"];
-            }
-            $imagesSizes
-                = array(
-                "thumbnail",
-                "medium",
-                "medium_large",
-                "large");
-            if (in_array($_size, $imagesSizes)
-            ) {
-                $sizes[$_size]["width"] = get_option($_size . "_size_w");
-                $sizes[$_size]["height"] = get_option($_size . "_size_h");
-                $sizes[$_size]["crop"] = (bool) get_option($_size . "_crop");
-                $sizes[$_size]["source"] = esc_html__(
-                    "WP Core",
-                    "99robots-custom-image-sizes"
-                );
+			add_image_size(
+				$size['name'],
+				intval( $size['width'] ),
+				intval( $size['height'] ),
+				$crop
+			);
+		}
+	}
 
-                $names[] = $_size;
-            } elseif (isset($_wp_additional_image_sizes[$_size])
-                && !in_array($_size, $custom_name)
-            ) {
-                $sizes[$_size] = [
-                    "width" => $_wp_additional_image_sizes[$_size]["width"],
-                    "height" => $_wp_additional_image_sizes[$_size]["height"],
-                    "crop" => $_wp_additional_image_sizes[$_size]["crop"],
-                    "source" => esc_html__(
-                        "Active Theme or Plugin",
-                        "99robots-custom-image-sizes"
-                    ),
-                ];
 
-                $names[] = $_size;
-            }
-        }
+	/**
+	 * Hooks to 'plugin_action_links_' filter.
+	 *
+	 * @param array $links The existing plugin action links.
+	 *
+	 * @return array The modified plugin action links.
+	 */
+	public function plugin_links( $links ) {
+		$settings_link
+			= '<a href="' .
+			get_admin_url() .
+			'options-general.php?page=' .
+			self::$settings_page .
+			'">' .
+			esc_html__( 'Settings', '99robots-custom-image-sizes' ) .
+			'</a>';
+		array_unshift( $links, $settings_link );
 
-        // Save data and check nonce
-        if (isset($_POST["submit"])
-            && check_admin_referer(self::$prefix . "settings")
-        ) {
-            $new_settings = [];
-            $name = isset($_POST[self::$prefix_dash . "name"])
-                ? $_POST[self::$prefix_dash . "name"]
-                : [];
-            $width = isset($_POST[self::$prefix_dash . "width"])
-                ? $_POST[self::$prefix_dash . "width"]
-                : [];
-            $height = isset($_POST[self::$prefix_dash . "height"])
-                ? $_POST[self::$prefix_dash . "height"]
-                : [];
-            $crop = isset($_POST[self::$prefix_dash . "crop"])
-                ? $_POST[self::$prefix_dash . "crop"]
-                : [];
+		return $links;
+	}
 
-            for ($i = 0; $i < count($name); $i++) {
-                $nameA = sanitize_text_field($name[$i]);
-                $nameB = stripcslashes($nameA);
-                if (isset($name[$i]) && "" !== $name[$i]
-                    &&  isset($width[$i]) && "" !== $width[$i]
-                    &&  isset($height[$i]) && "" !== $height[$i]
-                ) {
-                    // Check if name has not been taken already
-                    if (!in_array($nameB, $names)) {
-                        $new_settings[] = [
-                            "name" =>
-                            stripcslashes(sanitize_text_field($name[$i])),
-                            "width" =>
-                            stripcslashes(sanitize_text_field($width[$i])),
-                            "height" =>
-                            stripcslashes(sanitize_text_field($height[$i])),
-                            "crop" => stripcslashes(sanitize_text_field($crop[$i])),
-                        ];
-            
-                        $names[] = stripcslashes(sanitize_text_field($name[$i]));
-                    }
-                }
-            }
-            
+	/**
+	 * Hooks intot the 'admin_menu' hook to show the settings page
+	 *
+	 * @return void
+	 */
+	public function register_pages() {
+		$settings_page_load = add_submenu_page(
+			'options-general.php',
+			esc_html__( 'Custom Image Sizes', '99robots-custom-image-sizes' ),
+			esc_html__( 'Custom Image Sizes', '99robots-custom-image-sizes' ),
+			'manage_options',
+			self::$settings_page,
+			array( $this, 'render_settings' )
+		);
+		add_action( "load-$settings_page_load", array( $this, 'enqueque_scripts' ) );
+	}
 
-            self::updateSettings($new_settings);
-            $settings_page_url = get_admin_url() .
-                "options-general.php?page=" .
-                self::$settings_page;
-            ?>
-            <script type="text/javascript">
-                window.location= 
-                "<?php echo $settings_page_url; ?>";
-            </script>
-            <?php
-        }
+	/**
+	 * Hooks into the 'admin_print_scripts-$page'
+	 * to inlcude the scripts for the settings page
+	 *
+	 * @return void
+	 */
+	public function enqueque_scripts() {
+		// Style.
+		wp_enqueue_style(
+			self::$prefix . 'settings_css',
+			$this->plugin_url() . 'css/settings.css',
+			array(),
+			'1.0.0'
+		);
+		wp_enqueue_style(
+			self::$prefix . 'bootstrap_css',
+			$this->plugin_url() . 'css/nnr-bootstrap.min.css',
+			array(),
+			'1.0.0'
+		);
+		wp_enqueue_style(
+			self::$prefix . 'fontawesome_css',
+			$this->plugin_url() . 'css/font-awesome.min.css',
+			array(),
+			'1.0.0'
+		);
 
-        include_once "views/settings.php";
-    }
+		// Script.
+		wp_enqueue_script(
+			self::$prefix . 'bootstrap_js',
+			$this->plugin_url() . 'js/bootstrap.min.js',
+			array(),
+			'1.0.0', // Replace with the version number of your script.
+			true // Set to true to load the script in the footer.
+		);
+		wp_enqueue_script(
+			self::$prefix . 'settings_js',
+			$this->plugin_url() . 'js/settings.js',
+			array( 'jquery', 'jquery-ui-sortable' ),
+			'1.0.0', // Replace with the version number of your script.
+			true // Set to true to load the script in the footer.
+		);
+		wp_localize_script(
+			self::$prefix . 'settings_js',
+			'nnr_cis_settings_data',
+			array(
+				'prefix' => self::$prefix_dash,
+			)
+		);
+	}
 
-    // Helpers -----------------------------------------------------------
 
-    /**
-     * Get the settings
-     *
-     * @return void
-     */
-    public function getSettings()
-    {
-        if (function_exists("is_multisite") && is_multisite()) {
-            $settings = get_site_option(self::$prefix . "settings");
-        } else {
-            $settings = get_option(self::$prefix . "settings");
-        }
+	/**
+	 * Show the custom image sizes
+	 *
+	 * @param mixed $sizes An array of custom image sizes.
+	 *
+	 * @return array
+	 */
+	public function show_custom_sizes( $sizes ) {
+		$settings = $this->get_settings();
 
-        // Check if the setting is not set
-        if (false === $settings) {
-            $settings = [];
-        }
+		$new_sizes = array();
+		foreach ( $settings as $size ) {
+			$new_sizes[ $size['name'] ] = $size['name'];
+		}
 
-        return $settings;
-    }
+		return array_merge( $sizes, $new_sizes );
+	}
 
-    /**
-     * Update the settings
-     *
-     * @param mixed $settings The new settings to update
-     *
-     * @return void
-     */
-    public function updateSettings($settings)
-    {
-        // Get the setting from a multisite
-        if (function_exists("is_multisite") && is_multisite()) {
-            $result = update_site_option(self::$prefix . "settings", $settings);
-        } else {
-            $result = update_option(self::$prefix . "settings", $settings);
-        }
+	/**
+	 * This is the main function for the settings page
+	 *
+	 * @return void
+	 */
+	public function render_settings() {
+		global $_wp_additional_image_sizes;
 
-        return $result;
-    }
+		$settings = $this->get_settings();
 
-    /**
-     * Get plugin directory.
-     *
-     * @return string
-     */
-    public function pluginDir()
-    {
-        if (is_null($this->_plugin_dir)) {
-            $this->_plugin_dir
-                = untrailingslashit(plugin_dir_path(__FILE__)) . "/";
-        }
+		// Get all the image sizes registered.
+		$sizes                        = array();
+		$names                        = array();
+		$get_intermediate_image_sizes = get_intermediate_image_sizes();
 
-        return $this->_plugin_dir;
-    }
+		// Create the full array with sizes and crop info.
+		foreach ( $get_intermediate_image_sizes as $_size ) {
+			$custom_name = array();
+			foreach ( $settings as $size ) {
+				$custom_name[] = $size['name'];
+			}
+			$images_sizes
+				= array(
+					'thumbnail',
+					'medium',
+					'medium_large',
+					'large',
+				);
+			if ( in_array( $_size, $images_sizes, true )
+			) {
+				$sizes[ $_size ]['width']  = get_option( $_size . '_size_w' );
+				$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
+				$sizes[ $_size ]['crop']   = (bool) get_option( $_size . '_crop' );
+				$sizes[ $_size ]['source'] = esc_html__(
+					'WP Core',
+					'99robots-custom-image-sizes'
+				);
 
-    /**
-     * Get plugin url.
-     *
-     * @since  1.0.0
-     * @return string
-     */
-    public function pluginUrl()
-    {
-        if (is_null($this->_plugin_url)) {
-            $this->_plugin_url = untrailingslashit(plugin_dir_url(__FILE__)) . "/";
-        }
+				$names[] = $_size;
+			} elseif ( isset( $_wp_additional_image_sizes[ $_size ] )
+				&& ! in_array( $_size, $custom_name, true )
+			) {
+				$sizes[ $_size ] = array(
+					'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
+					'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+					'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
+					'source' => esc_html__(
+						'Active Theme or Plugin',
+						'99robots-custom-image-sizes'
+					),
+				);
 
-        return $this->_plugin_url;
-    }
+				$names[] = $_size;
+			}
+		}
 
-    /**
-     * Get plugin version
-     *
-     * @return string
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
+		// Save data and check nonce.
+		if ( isset( $_POST['submit'] )
+			&& check_admin_referer( self::$prefix . 'settings' )
+		) {
+
+			$new_settings = array();
+			$name         = isset( $_POST[ self::$prefix_dash . 'name' ] )
+			? array_map(
+				'sanitize_text_field',
+				wp_unslash( $_POST[ self::$prefix_dash . 'name' ] )
+			) : array();
+			$width        = isset( $_POST[ self::$prefix_dash . 'width' ] )
+			? array_map(
+				'sanitize_text_field',
+				wp_unslash( $_POST[ self::$prefix_dash . 'width' ] )
+			) : array();
+			$height       = isset( $_POST[ self::$prefix_dash . 'height' ] )
+			? array_map(
+				'sanitize_text_field',
+				wp_unslash( $_POST[ self::$prefix_dash . 'height' ] )
+			) : array();
+			$crop         = isset( $_POST[ self::$prefix_dash . 'crop' ] )
+			? array_map(
+				'sanitize_text_field',
+				wp_unslash( $_POST[ self::$prefix_dash . 'crop' ] )
+			) : array();
+
+			$count = count( $name );
+			for ( $i = 0; $i < $count; $i++ ) {
+				$name_a = sanitize_text_field( $name[ $i ] );
+				$name_b = stripcslashes( $name_a );
+				if ( isset( $name[ $i ] ) && '' !== $name[ $i ]
+					&& isset( $width[ $i ] ) && '' !== $width[ $i ]
+					&& isset( $height[ $i ] ) && '' !== $height[ $i ]
+				) {
+					// Check if name has not been taken already.
+					if ( ! in_array( $name_b, $names, true ) ) {
+						$new_settings[] = array(
+							'name'   =>
+							stripcslashes( sanitize_text_field( $name[ $i ] ) ),
+							'width'  =>
+							stripcslashes( sanitize_text_field( $width[ $i ] ) ),
+							'height' =>
+							stripcslashes( sanitize_text_field( $height[ $i ] ) ),
+							'crop'   => stripcslashes( sanitize_text_field( $crop[ $i ] ) ),
+						);
+
+						$names[] = stripcslashes( sanitize_text_field( $name[ $i ] ) );
+					}
+				}
+			}
+
+			self::update_settings( $new_settings );
+			$settings_page_url = get_admin_url() .
+				'options-general.php?page=' .
+				self::$settings_page;
+			?>
+			
+			<script type="text/javascript">
+				window.location= "<?php echo esc_url( $settings_page_url ); ?>";
+			</script>
+			<?php
+		}
+
+		include_once 'views/settings.php';
+	}
+
+
+	/**
+	 * Get the settings
+	 *
+	 * @return string
+	 */
+	public function get_settings() {
+		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			$settings = get_site_option( self::$prefix . 'settings' );
+		} else {
+			$settings = get_option( self::$prefix . 'settings' );
+		}
+
+		// Check if the setting is not set.
+		if ( false === $settings ) {
+			$settings = array();
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Update the settings
+	 *
+	 * @param mixed $settings The new settings to update.
+	 *
+	 * @return string
+	 */
+	public function update_settings( $settings ) {
+		// Get the setting from a multisite.
+		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			$result = update_site_option( self::$prefix . 'settings', $settings );
+		} else {
+			$result = update_option( self::$prefix . 'settings', $settings );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get plugin directory.
+	 *
+	 * @return string
+	 */
+	public function plugin_dir() {
+		if ( is_null( $this->plugin_dir ) ) {
+			$this->plugin_dir
+				= untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/';
+		}
+
+		return $this->plugin_dir;
+	}
+
+	/**
+	 * Get plugin url.
+	 *
+	 * @since  1.0.0
+	 * @return string
+	 */
+	public function plugin_url() {
+		if ( is_null( $this->plugin_url ) ) {
+			$this->plugin_url = untrailingslashit( plugin_dir_url( __FILE__ ) ) . '/';
+		}
+
+		return $this->plugin_url;
+	}
+
+
+	/**
+	 * Get plugin version
+	 *
+	 * @return string
+	 */
+	public function get_version(): string {
+		return $this->version;
+	}
 }
 
 /**
@@ -543,9 +547,10 @@ class NNR_Custom_Image_Sizes
  *
  * @return NNR_Custom_Image_Sizes
  */
-function Wps_Custom_sizes()
-{
-    return NNR_Custom_Image_Sizes::instance();
+function wps_custom_sizes() {
+	return NNR_Custom_Image_Sizes::instance();
 }
 // Init the plugin.
-Wps_Custom_sizes();
+wps_custom_sizes();
+
+
