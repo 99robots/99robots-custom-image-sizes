@@ -538,19 +538,8 @@ class NNR_Custom_Image_Sizes {
 		return $this->version;
 	}
 }
+// call the class.
+NNR_Custom_Image_Sizes::instance();
 
-/**
- * Main instance of NNR_Custom_Image_Sizes.
- *
- * Returns the main instance of NNR_Custom_Image_Sizes
- * to prevent the need to use globals.
- *
- * @return NNR_Custom_Image_Sizes
- */
-function wps_custom_sizes() {
-	return NNR_Custom_Image_Sizes::instance();
-}
-// Init the plugin.
-wps_custom_sizes();
 
 

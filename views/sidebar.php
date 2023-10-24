@@ -160,7 +160,7 @@
 				src="
 				<?php
 				echo esc_url(
-					wps_custom_sizes()->plugin_url()
+					$this->plugin_url()
 					. 'img/ad-plugin-request.png'
 				);
 

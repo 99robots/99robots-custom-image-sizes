@@ -34,7 +34,7 @@ $setting_repeater_item_height_cls   = self::$prefix_dash . 'repeater-item-height
 			<?php esc_html_e( 'Custom Image Sizes', '99robots-custom-image-sizes' ); ?>
 		</span>
 		<span class="nnr-product-version">
-			<?php echo esc_html( wps_custom_sizes()->get_version() ); ?>
+			<?php echo esc_html( NNR_Custom_Image_Sizes::get_version() ); ?>
 		</span>
 	</div>
 	<a href="http://draftpress.com/products" target="_blank">
