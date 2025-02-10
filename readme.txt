@@ -31,7 +31,7 @@ Also, please [check out our other plugins](https://draftpress.com/products/?utm_
 2. Select your image size when inserting image into a post
 
 == Changelog ==
-= 1.2.11 = 2025-01-10
+= 1.2.11 = 2025-02-10
 * Compatible with WordPress 6.7.1
 
 = 1.2.10 = 2023-11-01

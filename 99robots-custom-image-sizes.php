@@ -316,6 +316,15 @@ class NNR_Custom_Image_Sizes {
 				'prefix' => self::$prefix_dash,
 			)
 		);
+
+		wp_enqueue_script( 
+			self::$prefix . 'moosend_init', 
+			$this->plugin_url() . '/js/moosend-init.js', 
+			array( 'jquery' ), 
+			$this->version, 
+			true 
+		);
+
 	}
 
 
